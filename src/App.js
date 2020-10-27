@@ -3,13 +3,27 @@ import logo from './logo.svg';
 import './App.css';
 
 const App = () => {
-	const [counter, changeCounter] = useState(0); // [state, setState]
+	const [shoppingList, setShoppingList] = useState([]); // [state, setState]
+	const [inputValue, setInputValue] = useState(""); // [state, setState]
 
+	const addItemToShoppingList = (value) => {
+		setShoppingList([...shoppingList, value])
+		setInputValue("")
+	}
+
+	const handleInputChange = e => {
+		setInputValue(e.target.value)
+	}
 	return (
 		<div className="App">
-			<h1>{counter}</h1>
-			<button onClick={() => changeCounter(counter - 1)}>-</button>
-			<button onClick={() => changeCounter(counter + 1)}>+</button>
+			<ul>
+				{shoppingList.map(item => (
+					<li>{item}</li>
+				))}
+			</ul>
+			<input value={inputValue} onChange={handleInputChange} name="item"/>
+			<h1>{inputValue}</h1>
+			<button onClick={() => addItemToShoppingList(inputValue)}>Add</button>
 		</div>
 	);
 }
